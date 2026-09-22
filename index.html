@@ -2717,7 +2717,7 @@ function subscribeAll(){
     state.notes=m;renderNotes();purgeTrash();
   },()=>toast("As anotações pararam de sincronizar. Recarregue a página.")));
   U.push(db.doc("meta/config").onSnapshot(s=>{state.meta=Object.assign({passing:6},s.exists?s.data():{});render();}));
-  U.push(db.doc("trilha/"+TRILHA.key).onSnapshot(s=>{const d=s.exists?s.data():{};state.trail={seen:Object.assign({},d.seen||{})};renderTrail();renderCards();}));
+  U.push(db.doc("trilha/"+TRILHA.key).onSnapshot(s=>{const d=s.exists?s.data():{};state.trail={seen:Object.assign({},d.seen||{})};renderTrail();renderCards();renderHome();}));
   return U;
 }
 function uploadState(d){
