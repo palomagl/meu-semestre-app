@@ -1,0 +1,7 @@
+# Arquivos pessoais: ficam só no seu computador e NÃO vão pro GitHub
+pessoal/
+
+# lixo do sistema
+Thumbs.db
+desktop.ini
+.DS_Store
