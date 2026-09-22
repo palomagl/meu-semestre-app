@@ -1022,6 +1022,41 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
 .hp-fab[aria-expanded="true"] .fab-tag{background:#15171C;color:#FFD43B}
 @media (max-width:640px){.hp-fab{width:52px;height:52px;border-radius:18px}.hp-fab svg{width:29px;height:29px}}
 
+/* ================= TOPO DA INÍCIO (versão limpa) ================= */
+.hero2{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:end;gap:26px;padding:22px 24px}
+.hero2::after{width:190px;height:190px;right:-70px;top:-80px;opacity:.12}
+.h-main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.h-date{font-size:.8rem;font-weight:600;color:var(--hero-muted)}
+.hero2 h1{margin:0}
+.hero2 .doing{margin:2px 0 0;font-size:.9rem;font-weight:500;color:color-mix(in srgb,var(--hero-ink) 80%,transparent)}
+.h-next{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:6px 12px 6px 10px;font-size:.82rem;max-width:100%}
+.h-next i{width:7px;height:7px;border-radius:50%;background:var(--danger);flex:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--danger) 25%,transparent)}
+.h-next b{color:var(--hl)}
+.h-next small{color:var(--hero-muted);font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.h-next small::before{content:"· ";}
+.prog2{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1;min-width:0}
+.prog-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.prog-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--hero-muted)}
+.prog-wk{display:flex;align-items:baseline;gap:6px}
+.prog-wk b{font:800 1.6rem/1 var(--display);color:var(--hero-ink)}
+.prog-wk span{font-size:.8rem;color:var(--hero-muted);font-weight:600}
+.weeks{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;padding-bottom:8px}
+.wk{position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--hl) var(--f,0%),var(--hero-line) var(--f,0%))}
+.wk.cur{box-shadow:0 0 0 2px var(--hero),0 0 0 3.5px color-mix(in srgb,var(--hl) 70%,transparent)}
+.wk.prova::after{content:"";position:absolute;left:50%;bottom:-9px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--danger)}
+.prog-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.72rem;color:var(--hero-muted)}
+.prog-foot .leg{display:inline-flex;align-items:center;gap:6px}
+.prog-foot .leg i{width:6px;height:6px;border-radius:50%;background:var(--danger)}
+.sb-turma{display:block;margin-top:2px;font-size:.68rem!important}
+@media (min-width:1180px){#p-home>.hero2{align-items:end}}
+@media (max-width:640px){
+  .hero2{grid-template-columns:1fr;gap:16px;padding:16px 16px 14px}
+  .hero2 h1{font-size:1.55rem}
+  .h-next{margin-top:6px}
+  .weeks{gap:3px}.wk{height:8px}
+  .prog-wk b{font-size:1.3rem}
+}
+
 @keyframes edIn{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.ed{animation:none!important}}
 </style>
@@ -1032,7 +1067,6 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
     <h2>Meu Semestre</h2>
     <p>Entre com sua conta Google pra salvar tudo online e ver igual no celular e no computador.</p>
     <button type="button" class="g-btn" id="g-login"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.5 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.2l7.8 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.8-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.8l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.8 6.1C6.6 42.6 14.6 48 24 48z"/></svg>Entrar com Google</button>
-    <button type="button" class="lg-skip" id="g-skip">Usar sem conta neste aparelho</button>
     <p class="lg-err" id="lg-err" hidden></p>
   </div>
 </div>
@@ -1050,7 +1084,7 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
   <aside class="side">
     <div class="side-brand">
       <span class="logo" aria-hidden="true">MS</span>
-      <div class="sb-txt"><strong>Meu Semestre</strong><small>Processos Gerenciais · EAD</small></div>
+      <div class="sb-txt"><strong>Meu Semestre</strong><small>Processos Gerenciais · EAD</small><small class="sb-turma">Turma FLD6814900CSA · Polo IERGS</small></div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Seções">
       <button role="tab" id="tab-home" data-tab="home" aria-selected="true" title="Início"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/></svg><span class="tl">Início</span></button>
@@ -1065,7 +1099,6 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
     <div class="side-foot">
       <div class="side-prog"><span class="eyebrow">Semestre 2026/2</span><b id="side-wk">–</b><div class="minibar"><i id="side-fill"></i></div></div>
       <div class="acct" id="acct" hidden><span class="av" id="acct-av">?</span><span class="acct-t"><b id="acct-name">Conta</b><small>Sincronizado</small></span><button class="mini-btn" type="button" id="acct-out">Sair</button></div>
-      <button class="side-backup" id="side-backup" type="button" data-open="backup-sheet" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg><span>Backup dos dados</span></button>
       <button class="side-calc" id="side-calc" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8 7h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 15.5h.01M12 15.5h.01M15.5 15.5h.01"/></svg><span>Calculadora 12C</span></button>
     </div>
   </aside>
@@ -1073,18 +1106,17 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
   <main class="main">
     <!-- INÍCIO -->
     <section class="panel" id="p-home">
-      <header class="hero">
-        <div>
-          <span class="eyebrow">Processos Gerenciais · EAD · 2026/2</span>
+      <header class="hero hero2">
+        <div class="h-main">
+          <span class="h-date" id="h-date"></span>
           <h1 id="hello"><span id="greet">Olá</span>, <span class="name">Paloma</span></h1>
-          <p class="who">Turma FLD6814900CSA · Polo IERGS, Sapiranga/RS</p>
           <p class="doing" id="doing"></p>
+          <div class="h-next" id="h-next" hidden></div>
         </div>
-        <div class="prog" aria-label="Progresso do semestre">
-          <div class="big"><b id="wk">–</b><span id="wk-of">semanas</span></div>
-          <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
-          <div class="bar-labels mono"><span>14/09 início</span><span>19/12 fim</span></div>
-          <div class="legend"><span><i style="background:var(--hl)"></i>semestre até hoje</span><span><i style="border:2px dashed var(--danger)"></i>provas no polo</span></div>
+        <div class="prog2" aria-label="Progresso do semestre">
+          <div class="prog-top"><span class="prog-lbl">Semestre 2026/2</span><span class="prog-wk"><b id="wk">–</b><span id="wk-of">de 14 semanas</span></span></div>
+          <div class="weeks" id="weeks"></div>
+          <div class="prog-foot"><span>14 set</span><span class="leg"><i></i>semana de prova no polo</span><span>19 dez</span></div>
         </div>
       </header>
 
@@ -1322,18 +1354,11 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
   <button type="button" class="more-item" data-go="cal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><b>Calendário</b><small>Provas no polo, avaliações e feriados</small></span></button>
   <button type="button" class="more-item" data-go="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-7"/></svg><span><b>Disciplinas e notas</b><small>Médias e avaliações</small></span></button>
   <button type="button" class="more-item" data-go="joia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M9.5 4 12 9l2.5-5M12 9v11"/></svg><span><b>JOIA</b><small>Iniciação científica</small></span></button>
-  <button type="button" class="more-item" id="more-backup" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg><span><b>Backup dos dados</b><small>Baixar ou restaurar</small></span></button>
   <button type="button" class="more-item" id="more-out" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 16l-4-4 4-4M6 12h10"/></svg><span><b>Sair da conta</b><small>Seus dados continuam salvos online</small></span></button>
   <button type="button" class="more-item" id="more-calc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8 7h8M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 15.5h.01M12 15.5h.01M15.5 15.5h.01"/></svg><span><b>Calculadora 12C</b><small>Juros, porcentagem e datas</small></span></button>
 </div>
-<div class="more-sheet bk-sheet" id="backup-sheet" role="dialog" aria-label="Backup dos dados" hidden>
-  <div class="sheet-head"><b>Backup dos seus dados</b><button type="button" class="x" data-close aria-label="Fechar">×</button></div>
-  <p class="hint bk-local">Nesta versão, tudo fica salvo só neste navegador. Baixe um backup de vez em quando. Ele também serve pra passar seus dados pro celular ou pra outro computador.</p>
-  <p class="hint bk-cloud">Você está conectada: tudo já fica salvo online. Use isto só pra trazer um backup antigo (ex.: o arquivo <b>pessoal/meus-dados.json</b>) ou guardar uma cópia.</p>
-  <button type="button" class="more-item" id="bk-export"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg><span><b>Baixar backup</b><small>Salva um arquivo .json com tudo</small></span></button>
-  <label class="more-item" for="bk-file"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5M5 19h14"/></svg><span><b>Restaurar backup</b><small>Escolha o arquivo meus-dados.json</small></span></label>
-  <input type="file" id="bk-file" accept=".json,application/json" hidden>
-</div>
+<!-- entrada escondida: usada só uma vez, pra levar seus dados atuais pro banco online -->
+<input type="file" id="bk-file" accept=".json,application/json" hidden>
 <div id="backdrop" hidden></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1572,19 +1597,31 @@ function renderHero(){
   const t=isoToday();
   const cur=PHASES.filter(p=>t>=p.start&&t<=p.end).map(p=>`<b>${esc(phaseName(p))}</b>`);
   const prov=PHASES.find(p=>t>=p.prova[0]&&t<=p.prova[1]);
-  let txt=cur.length?`Cursando agora: ${cur.join(" e ")}`:(t<SEM_START?"O semestre começa em 14/09.":t>SEM_END?"Semestre encerrado. Bom descanso!":"");
-  if(prov)txt+=` · <b>semana de prova no polo</b> (${esc(phaseName(prov))})`;
+  let txt=cur.length?`Agora: ${cur.join(" e ")}`:(t<SEM_START?"O semestre começa em 14/09.":t>SEM_END?"Semestre encerrado. Bom descanso!":"");
+  if(prov)txt+=` · <b>semana de prova no polo</b>`;
   $("#doing").innerHTML=txt;
+  const ds=new Date().toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"});
+  $("#h-date").textContent=ds.charAt(0).toUpperCase()+ds.slice(1);
+  /* o que vem a seguir: a próxima prova (o próximo prazo já aparece no cartão ao lado) */
+  const np=openTasks().filter(x=>x.type==="Prova"&&x.due&&x.due>=t).sort((a,b)=>a.due.localeCompare(b.due))[0];
+  const nx=$("#h-next");
+  if(np){const d=daysUntil(np.due);nx.innerHTML=`<i></i><span>Próxima prova ${d===0?"<b>hoje</b>":d===1?"<b>amanhã</b>":`em <b>${d} dias</b>`}</span><small>${esc(np.title)}</small>`;nx.hidden=false;}
+  else nx.hidden=true;
+  /* semanas em pílulas: passadas em amarelo, a atual enchendo, ponto vermelho nas de prova */
   const total=Math.ceil((daysBetween(SEM_START,SEM_END)+1)/7);
   const passed=Math.min(Math.max(daysBetween(SEM_START,t),0),daysBetween(SEM_START,SEM_END));
   const wk=Math.min(Math.floor(passed/7)+1,total);
   $("#wk").textContent=t<SEM_START?"0":wk;
   $("#wk-of").textContent=`de ${total} semanas`;
-  const span=daysBetween(SEM_START,SEM_END), pct=x=>Math.min(Math.max(daysBetween(SEM_START,x)/span*100,0),100);
-  $("#fill").style.width=pct(t)+"%";
-  $("#bar").querySelectorAll(".win,.today").forEach(n=>n.remove());
-  PHASES.forEach(p=>{const w=document.createElement("div");w.className="win";w.style.left=pct(p.prova[0])+"%";w.style.width=(pct(p.prova[1])-pct(p.prova[0]))+"%";w.title=`Prova de ${phaseName(p)}: ${range(p.prova[0],p.prova[1])}`;$("#bar").appendChild(w);});
-  const tk=document.createElement("div");tk.className="today";tk.style.left=`calc(${pct(t)}% - 1px)`;tk.title="Hoje";$("#bar").appendChild(tk);
+  const s0=parse(SEM_START);
+  $("#weeks").innerHTML=[...Array(total)].map((_,i)=>{
+    const a=iso(new Date(s0.getFullYear(),s0.getMonth(),s0.getDate()+i*7)),b=iso(new Date(s0.getFullYear(),s0.getMonth(),s0.getDate()+i*7+6));
+    const prova=PHASES.find(p=>p.prova[0]<=b&&p.prova[1]>=a);
+    let cls="",fill=0;
+    if(t>b){cls="done";fill=100;}else if(t>=a){cls="cur";fill=Math.round((daysBetween(a,t)+1)/7*100);}
+    const tip=`Semana ${i+1} · ${range(a,b)}${prova?` · prova de ${phaseName(prova)}`:""}`;
+    return `<span class="wk ${cls} ${prova?"prova":""}" style="--f:${fill}%" title="${esc(tip)}"></span>`;
+  }).join("");
 }
 function renderSummary(){
   const open=openTasks().filter(t=>t.due);
@@ -2208,22 +2245,9 @@ document.addEventListener("keydown",e=>{
 window.addEventListener("pagehide",flushNote);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushNote();});
 
-/* ---------- backup (versão que roda fora do Claude, salva no navegador) ---------- */
-function enableStandalone(){
-  document.body.classList.add("standalone");
-  ["#side-backup","#more-backup"].forEach(s=>{const e=$(s);if(e)e.hidden=false;});
-  const empty=!Object.keys(state.subjects).length&&!Object.keys(state.tasks).length;
-  if(empty)setTimeout(()=>{if(!openSheetId)openSheet("backup-sheet");},2300);
-}
-$("#more-backup").addEventListener("click",()=>{closeSheet();openSheet("backup-sheet");});
-$("#bk-export").addEventListener("click",()=>{
-  flushNote();
-  const data={app:"meu-semestre",versao:1,exportadoEm:new Date().toISOString(),
-    dados:{subjects:state.subjects,tasks:state.tasks,checklist:state.checklist,notes:state.notes,meta:state.meta,trail:state.trail}};
-  const blob=new Blob([JSON.stringify(data,null,1)],{type:"application/json"}),a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="meus-dados-"+isoToday()+".json";document.body.appendChild(a);a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast("Backup baixado");
-});
+/* ---------- fora do Claude e sem banco configurado: salva no navegador ---------- */
+function enableStandalone(){document.body.classList.add("standalone");}
+/* importação única dos dados atuais (feita uma vez, pra levar tudo pro banco online) */
 $("#bk-file").addEventListener("change",async e=>{
   const f=e.target.files&&e.target.files[0];if(!f)return;
   try{
@@ -2231,7 +2255,7 @@ $("#bk-file").addEventListener("change",async e=>{
     if(!d||typeof d!=="object"||!(d.subjects||d.tasks))throw new Error("formato");
     if(db&&document.body.classList.contains("signed")){
       e.target.value="";
-      uploadState(d).then(()=>{closeSheet();toast("Backup enviado pro banco online");}).catch(()=>toast("Não consegui enviar o backup. Tente de novo."));
+      uploadState(d).then(()=>toast("Seus dados foram pro banco online")).catch(()=>toast("Não consegui enviar os dados. Tente de novo."));
       return;
     }
     ["subjects","tasks","checklist","notes"].forEach(k=>{state[k]=d[k]&&typeof d[k]==="object"?d[k]:{};});
@@ -2734,20 +2758,16 @@ function startFirebase(){
       else fbError(err);
     });
   });
-  $("#g-skip").addEventListener("click",()=>{hideLogin();try{localStorage.setItem("ms-sem-conta","1");}catch(e){}enableStandalone();});
   ["#acct-out","#more-out"].forEach(s=>$(s).addEventListener("click",()=>{closeSheet();auth.signOut();}));
   auth.onAuthStateChanged(user=>{
     cloudUnsubs.forEach(u=>{try{u();}catch(e){}});cloudUnsubs=[];
     if(!user){
       db=null;document.body.classList.remove("signed");$("#acct").hidden=true;$("#more-out").hidden=true;
-      let skip=false;try{skip=localStorage.getItem("ms-sem-conta")==="1";}catch(e){}
-      if(skip){enableStandalone();}else showLogin();
-      ready();return;
+      showLogin();ready();return;
     }
-    hideLogin();try{localStorage.removeItem("ms-sem-conta");}catch(e){}
+    hideLogin();
     document.body.classList.add("signed");
-    ["#side-backup"].forEach(s=>{const e=$(s);if(e)e.hidden=true;});
-    $("#acct").hidden=false;$("#more-out").hidden=false;$("#more-backup").hidden=false;
+    $("#acct").hidden=false;$("#more-out").hidden=false;
     $("#acct-name").textContent=(user.displayName||user.email||"Conta Google").split(" ")[0];
     $("#acct-av").textContent=((user.displayName||user.email||"?").trim()[0]||"?").toUpperCase();
     const local=JSON.parse(JSON.stringify({subjects:state.subjects,tasks:state.tasks,checklist:state.checklist,notes:state.notes,meta:state.meta,trail:state.trail}));
@@ -2757,7 +2777,6 @@ function startFirebase(){
       if(!s.empty)return;
       const hasLocal=Object.keys(local.tasks||{}).length||Object.keys(local.subjects||{}).length;
       if(hasLocal)uploadState(local).then(()=>toast("Seus dados foram pro banco online")).catch(()=>toast("Não consegui enviar os dados. Tente de novo."));
-      else setTimeout(()=>openSheet("backup-sheet"),700);
     }).catch(()=>{});
     cloudUnsubs=subscribeAll();
     setTimeout(ready,1500);

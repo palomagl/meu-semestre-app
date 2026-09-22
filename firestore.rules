@@ -1,11 +1,18 @@
 rules_version = '2';
 
-// Cada pessoa só lê e grava os próprios dados (users/<id da conta>/...).
-// Cole isto em: Firebase → Firestore Database → aba "Regras" → Publicar.
+// Modelo público das regras. A versão que está publicada no Firebase é a
+// "trancada" (pessoal/regras-firebase.txt), que só aceita o e-mail da dona.
+// Cada conta só lê e grava os próprios dados (users/<id da conta>/...).
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{uid}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.email_verified == true;
+    }
+    // Qualquer outro lugar do banco: bloqueado.
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

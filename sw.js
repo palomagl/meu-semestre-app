@@ -1,5 +1,5 @@
-/* Meu Semestre — service worker: deixa o app abrir mesmo sem internet */
-const CACHE = "meu-semestre-v3";
+/* Meu Semestre â€” service worker: deixa o app abrir mesmo sem internet */
+const CACHE = "meu-semestre-v5";
 const ASSETS = [
   "./",
   "./index.html",
@@ -23,13 +23,13 @@ self.addEventListener("activate", e => {
   );
 });
 
-/* internet primeiro (pega sempre a versão nova); sem internet, usa a guardada */
+/* internet primeiro (pega sempre a versÃ£o nova); sem internet, usa a guardada */
 function networkFirst(req, key) {
   return fetch(req)
     .then(r => { if (r.ok) { const cp = r.clone(); caches.open(CACHE).then(c => c.put(key || req, cp)); } return r; })
     .catch(() => caches.match(key || req));
 }
-/* guardada primeiro (bibliotecas e fontes que não mudam) */
+/* guardada primeiro (bibliotecas e fontes que nÃ£o mudam) */
 function cacheFirst(req, name) {
   return caches.open(name).then(c => c.match(req).then(m => m || fetch(req).then(r => { c.put(req, r.clone()); return r; })));
 }
