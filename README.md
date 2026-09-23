@@ -8,20 +8,28 @@
 ![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-🔗 **[Ver o app funcionando](https://meu-semestre-app.vercel.app)**
+🔗 **[Ver o app funcionando](https://college-organizer-app.vercel.app/)**
+
+<table align="center">
+  <tr>
+    <td align="center" width="25%"><img src="screenshots/01-inicio.png" alt="Tela inicial: próximo prazo, semana em faixa e contagem regressiva para a prova" /></td>
+    <td align="center" width="25%"><img src="screenshots/02-agenda.png" alt="Agenda com prazos agrupados por urgência" /></td>
+    <td align="center" width="25%"><img src="screenshots/04-trilha.png" alt="Trilha de aprendizagem com progresso por unidade" /></td>
+    <td align="center" width="25%"><img src="screenshots/03-caderno.png" alt="Caderno com notas em texto e folhas à mão" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Início</b><br/>o que vem primeiro</sub></td>
+    <td align="center"><sub><b>Agenda</b><br/>prazos por urgência</sub></td>
+    <td align="center"><sub><b>Trilha</b><br/>progresso da disciplina</sub></td>
+    <td align="center"><sub><b>Caderno</b><br/>texto e folhas à mão</sub></td>
+  </tr>
+</table>
 
 <p align="center">
-  <img src="screenshots/01-inicio.png" width="24%" alt="Tela inicial: próximo prazo, semana em faixa e contagem para a prova" />
-  <img src="screenshots/02-agenda.png" width="24%" alt="Agenda com prazos agrupados por urgência" />
-  <img src="screenshots/04-trilha.png" width="24%" alt="Trilha de aprendizagem com progresso por unidade" />
-  <img src="screenshots/03-caderno.png" width="24%" alt="Caderno com notas em texto e folhas à mão" />
+  <img src="screenshots/06-calculadora-12c.png" width="85%" alt="Calculadora HP-12C em notação RPN, aberta na horizontal por cima do app" />
+  <br/>
+  <sub><b>Calculadora 12C</b> — abre por cima de qualquer tela, sem perder o que estava sendo feito</sub>
 </p>
-
-<p align="center">
-  <img src="screenshots/06-calculadora-12c.png" width="88%" alt="Calculadora HP-12C em RPN, aberta em tela cheia na horizontal" />
-</p>
-
-<p align="center"><em>A calculadora 12C abre por cima de qualquer tela, sem perder o que estava sendo feito.</em></p>
 
 ---
 
