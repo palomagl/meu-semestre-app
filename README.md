@@ -1,59 +1,161 @@
-# Meu Semestre
+# 📘 Meu Semestre
 
-Organizador da faculdade feito pra Processos Gerenciais (EAD), no estilo app de celular.
-No ar em **https://college-organizer-app.vercel.app** (a Vercel publica sozinha a cada `git push`).
+**Organizador acadêmico para quem estuda a distância** — prazos, notas, trilha de aprendizagem, caderno com escrita à mão e uma calculadora financeira HP-12C. Instala no celular, funciona sem internet e sincroniza sozinho.
 
-## O que tem
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
+![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-- **Início**: próximo prazo, semana em faixa, próximas provas com contagem de dias, médias e lembretes.
-- **Agenda**: prazos agrupados (atrasadas, hoje, próximos 7 dias, mais pra frente), data editável e "desfazer" ao apagar.
-- **Trilha**: a trilha de aprendizagem de Matemática Financeira por unidade, marcando o que já foi visto.
-- **Caderno**: notas estilo Notas do iPhone e **folhas à mão** pra escrever contas com caneta de toque. Tem tela cheia e "Apagadas recentemente".
-- **Calendário**: a trilha do semestre (D3 → D4 → D5), provas no polo, RecuperAí e feriados.
-- **Disciplinas e notas**: avaliações com peso, média e quanto falta pra passar.
-- **JOIA**: o que é, passo a passo e checklist.
-- **Calculadora 12C**: botão flutuante com RPN, juros compostos, NPV/IRR, amortização, datas e o modo "Explicar teclas".
+🔗 **[Ver o app funcionando](https://meu-semestre-app.vercel.app)**
 
-## Banco de dados online (Firebase, grátis)
+<p align="center">
+  <img src="screenshots/01-inicio.png" width="24%" alt="Tela inicial: próximo prazo, semana em faixa e contagem para a prova" />
+  <img src="screenshots/02-agenda.png" width="24%" alt="Agenda com prazos agrupados por urgência" />
+  <img src="screenshots/04-trilha.png" width="24%" alt="Trilha de aprendizagem com progresso por unidade" />
+  <img src="screenshots/03-caderno.png" width="24%" alt="Caderno com notas em texto e folhas à mão" />
+</p>
 
-O app salva tudo no **Firebase** (do Google), com login pela conta Google. Assim fica igual no celular e no computador. Só você acessa os seus dados.
+<p align="center">
+  <img src="screenshots/06-calculadora-12c.png" width="88%" alt="Calculadora HP-12C em RPN, aberta em tela cheia na horizontal" />
+</p>
 
-Configuração (uma vez só):
+<p align="center"><em>A calculadora 12C abre por cima de qualquer tela, sem perder o que estava sendo feito.</em></p>
 
-1. Entre em **https://console.firebase.google.com** e clique em **Criar projeto** → nome `meu-semestre` → pode desligar o Google Analytics.
-2. **Login com Google**: **Criação → Authentication → Vamos começar → Método de login → Google** → ativar → escolher seu e-mail → **Salvar**.
-3. **Autorizar o site**: em Authentication → **Configurações → Domínios autorizados → Adicionar domínio** → `college-organizer-app.vercel.app`
-4. **Banco**: **Criação → Firestore Database → Criar banco de dados** → local **southamerica-east1 (São Paulo)** → **modo de produção**.
-5. **Regras**: no Firestore, aba **Regras** → apagar tudo → colar o conteúdo de `pessoal/regras-firebase.txt` (ou `firestore.rules` trocando pelo seu e-mail) → **Publicar**.
-6. **Configuração do app**: ⚙️ **Configurações do projeto → Seus apps → `</>` (Web)** → registrar como `Meu Semestre` → copiar os valores do `firebaseConfig` pro arquivo `firebase-config.js`.
-7. Enviar pro GitHub (`git add .`, `git commit -m "Liga o Firebase"`, `git push`). A Vercel atualiza sozinha.
+---
 
-Os valores do `firebase-config.js` não são senha e podem ficar no GitHub. Quem protege os dados são as regras do passo 5.
+## Por que existe
+
+Curso a distância não tem quadro de avisos nem colega do lado pra lembrar que a prova é sexta. As informações chegam espalhadas: prazo no portal, prova no calendário, matéria na trilha, nota numa planilha.
+
+Este app junta tudo num lugar só — e foi feito para o celular primeiro, porque é onde a consulta acontece: no ônibus, na fila, entre uma aula e outra.
+
+Não é uma demonstração: está em uso diário desde que ficou pronto, e cada funcionalidade nasceu de uma necessidade que apareceu no meio do semestre.
+
+---
+
+## O que ele faz
+
+| Seção | O que resolve |
+|---|---|
+| **Início** | O próximo prazo, a semana em faixa, provas com contagem regressiva, médias e lembretes |
+| **Agenda** | Prazos agrupados por urgência (atrasados, hoje, 7 dias, depois), com desfazer ao apagar |
+| **Trilha** | A trilha de Matemática Financeira por unidade, marcando o que já foi estudado |
+| **Caderno** | Notas em texto e **folhas à mão** para resolver contas com caneta de toque |
+| **Calendário** | Trilha do semestre, provas no polo, RecuperAí e feriados |
+| **Disciplinas** | Avaliações com peso, média calculada e quanto falta para passar |
+| **Calculadora 12C** | HP-12C com notação RPN: juros compostos, PV/PMT/FV, NPV, TIR e amortização |
+
+---
+
+## Decisões técnicas
+
+### Um arquivo só, sem etapa de build
+
+O app inteiro são **2.800 linhas num único `index.html`** — telas, estilos e lógica. As únicas dependências externas são os três SDKs do Firebase. Não há framework, `package.json`, bundler nem etapa de build.
+
+Isso foi escolha, não limitação. Um projeto pessoal que precisa sobreviver a meses sem manutenção não deveria quebrar porque uma dependência mudou de versão. Aqui, `git push` e o app está no ar: o que está escrito é o que roda, e abrir o arquivo no navegador é o ambiente de desenvolvimento inteiro.
+
+O custo é real — um arquivo desse tamanho é mais difícil de navegar do que módulos separados, e a organização depende de disciplina em vez de estrutura. Para este tamanho, valeu a troca.
+
+### Offline de verdade, não só um aviso bonitinho
+
+Duas camadas trabalham juntas:
+
+- **Service worker** guarda a casca do app em cache, então ele abre sem rede
+- **`enablePersistence` do Firestore** guarda os dados no aparelho e enfileira as escritas
+
+Na prática: dá para marcar uma tarefa no metrô sem sinal e ela sobe sozinha quando a conexão voltar.
+
+### Segurança tratada como requisito
+
+Um app que guarda a vida acadêmica de alguém merece mais do que login e esperança:
+
+- **Regras do Firestore** exigem três coisas para qualquer leitura ou escrita: estar autenticado, o `uid` bater com o dono do caminho, e o e-mail ser verificado. Tudo fora de `users/{uid}/` é negado explicitamente.
+- **Content-Security-Policy restritiva** no `vercel.json`: `default-src 'self'`, `object-src 'none'`, `frame-ancestors 'none'`. Cada origem externa liberada é nominal — Google e Firebase, nada além.
+- **Sanitização na entrada**: texto colado no Caderno passa por um filtro que remove scripts e URLs perigosas antes de virar HTML.
+- **Chave da API restrita por domínio** no Google Cloud.
+
+### Emulação da HP-12C
+
+A calculadora implementa **notação polonesa reversa** com pilha de quatro registradores e a tecla `ENTER`, mais os registradores financeiros `PV`, `PMT`, `FV`, `i` e `n` — o mesmo modelo mental da HP-12C que o curso exige.
+
+Além das funções: juros compostos, NPV, TIR e tabela de amortização. Tem ainda um modo **"Explicar teclas"**, porque aprender RPN é metade da dificuldade da prova.
+
+### Escrita à mão com caneta
+
+O Caderno tem folhas em `<canvas>` com **Pointer Events**, distinguindo dedo de caneta e respondendo à pressão. Resolver uma conta escrevendo é mais rápido do que digitar — e é assim que a prova é feita.
+
+### Navegação pensada para o polegar
+
+<img src="screenshots/05-mais.png" width="30%" align="right" alt="Menu Mais abrindo como painel deslizante a partir da base da tela" />
+
+As quatro seções do dia a dia ficam numa barra fixa na base, dentro do alcance do polegar. O que se usa de vez em quando — calendário, notas, JOIA — mora atrás de **Mais**, que abre como painel deslizante a partir da base em vez de uma página nova: nada se perde de vista e fechar é um gesto.
+
+A calculadora tem botão flutuante próprio, porque ela é chamada **no meio de outra coisa** — lendo um exercício, conferindo uma parcela. Sair da tela para calcular quebraria o raciocínio.
+
+Todas as medidas somam `env(safe-area-inset-*)`, então nada encosta no notch nem na barra de gestos, e o app instalado ocupa a tela inteira sem parecer um site espremido.
+
+<br clear="right" />
+
+
+---
+
+## Rodando localmente
+
+Não precisa instalar nada:
+
+```bash
+git clone https://github.com/palomagl/meu-semestre-app.git
+cd meu-semestre-app
+```
+
+Abra o `index.html` no navegador. Para o login do Google funcionar, é preciso um projeto no Firebase — veja abaixo.
+
+<details>
+<summary><strong>Configurar o Firebase (uma vez só)</strong></summary>
+
+1. Em [console.firebase.google.com](https://console.firebase.google.com), **Criar projeto** → nome `meu-semestre` → pode desligar o Analytics
+2. **Authentication → Método de login → Google** → ativar → escolher o e-mail de suporte → **Salvar**
+3. **Authentication → Configurações → Domínios autorizados** → adicionar o domínio do site
+4. **Firestore Database → Criar banco** → região `southamerica-east1` (São Paulo) → **modo de produção**
+5. **Firestore → Regras** → colar o conteúdo de `firestore.rules` → **Publicar**
+6. **⚙️ Configurações do projeto → Seus apps → `</>`** → copiar o `firebaseConfig` para o arquivo `firebase-config.js`
+
+Os valores do `firebase-config.js` são públicos por design: identificam o projeto, não autorizam nada. Quem protege os dados são as regras do passo 5.
+
+</details>
+
+---
 
 ## Instalar no celular
 
-- **Android (Chrome)**: abrir o site → **⋮** → **Instalar app**.
-- **iPhone (Safari)**: abrir o site → **Compartilhar** → **Adicionar à Tela de Início**.
+- **iPhone (Safari)**: abrir o site → **Compartilhar** → **Adicionar à Tela de Início**
+- **Android (Chrome)**: abrir o site → **⋮** → **Instalar app**
 
-Abre em tela cheia, com o ícone amarelo, e funciona até sem internet. O que você fizer offline sincroniza quando a internet voltar.
+Abre em tela cheia, com ícone próprio, e funciona sem internet.
 
-## Segurança e privacidade
+---
 
-- **Banco trancado**: as regras publicadas no Firebase só aceitam uma conta Google (a da dona do app), e só nos próprios dados. Mesmo que alguém entre com outra conta Google, não lê nem grava nada. A versão com o e-mail fica em `pessoal/regras-firebase.txt` (fora do GitHub); `firestore.rules` é só o modelo público.
-- **Site blindado** (`vercel.json`): o navegador só carrega código do próprio site e do Google/Firebase (Content-Security-Policy), o app não pode ser aberto escondido dentro de outro site (anti-clickjacking), e câmera, microfone e localização ficam bloqueados.
-- **Anotações limpas**: o que é colado no Caderno passa por um filtro que remove scripts e links perigosos antes de salvar.
-- **Chave do Firebase restrita**: no Google Cloud, a chave só funciona a partir do endereço do app.
-- A pasta `pessoal/` não vai pro GitHub.
+## Estrutura
 
-## Arquivos
+```
+index.html              o app inteiro — telas, estilos e lógica
+firebase-config.js      configuração do projeto Firebase
+firestore.rules         regras de segurança do banco
+vercel.json             cabeçalhos de segurança (CSP, anti-clickjacking)
+manifest.webmanifest    nome, cores e ícones do app instalável
+sw.js                   service worker — faz o app abrir sem internet
+icons/                  ícones em todos os tamanhos
+```
 
-| Arquivo | Pra que serve |
-|---|---|
-| `index.html` | O app inteiro (telas, estilos e código) |
-| `firebase-config.js` | Configuração do Firebase |
-| `firestore.rules` | Modelo das regras de segurança do banco |
-| `vercel.json` | Proteções do site (cabeçalhos de segurança) |
-| `manifest.webmanifest` | Nome, cores e ícones pra instalar no celular |
-| `sw.js` | Faz o app abrir sem internet |
-| `icons/` | Ícones do app |
-| `pessoal/` | Seus arquivos pessoais (não vai pro GitHub) |
+---
+
+## Contato
+
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/palomagl)
+
+---
+
+> Feito para resolver um problema real, e usado todo dia desde então.
