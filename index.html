@@ -262,6 +262,7 @@ details.donebox ul{margin-top:8px}
 .bookbtn .bt b{font-weight:700;font-size:.95rem}
 .bookbtn .bt small{font-size:.76rem;opacity:.75}
 .bookbtn .arr{margin-left:auto;font-weight:700;opacity:.75;white-space:nowrap}
+.bookbtn.wide{margin-top:0;padding:13px 15px}
 .bookbtn.light{background:var(--sunken);border-color:var(--line);color:var(--ink)}
 .bookbtn.light:hover{background:var(--hl-soft)}
 @media (max-width:520px){.trail-hero{grid-template-columns:1fr}.ring{width:80px;height:80px}.ring span{width:62px;height:62px;font-size:1.1rem}}
@@ -888,10 +889,10 @@ details.unit{border-radius:var(--r)}
   #p-trilha>.page-head{grid-column:1/-1}
   #p-trilha>#trail-units{grid-column:1;grid-row:2/span 2}
   #p-trilha>.trail-hero{grid-column:2;grid-row:2;grid-template-columns:auto 1fr;position:sticky;top:16px}
-  /* na coluna estreita o botão do livro fica só com o essencial */
-  #p-trilha>.trail-hero .bookbtn{padding:10px 12px;gap:10px}
-  #p-trilha>.trail-hero .bookbtn .bt small{display:none}
-  #p-trilha>.trail-hero .bookbtn .bk{width:34px;height:34px;border-radius:10px}
+  #p-trilha>#trail-book{grid-column:1/-1;grid-row:2}
+  #p-trilha>#trail-units{grid-row:3/span 2}
+  #p-trilha>.trail-hero{grid-row:3}
+  #p-trilha>.box{grid-row:4}
   #p-trilha>.box{grid-column:2;grid-row:3}
   #p-trilha .aulas{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
   /* Calendário: linha do tempo + datas ao lado */
@@ -1178,6 +1179,7 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
     <!-- TRILHA -->
     <section class="panel" id="p-trilha" hidden>
       <header class="page-head"><div class="ph-txt"><span class="eyebrow">Trilha de aprendizagem</span><h1>Matemática Financeira</h1><p>Vídeos, leituras e exercícios da disciplina, na ordem, com o que você já viu marcado.</p></div></header>
+      <div id="trail-book"></div>
       <div class="trail-hero" id="trail-hero"></div>
       <div class="panel" id="trail-units"></div>
       <div class="box">
@@ -1592,8 +1594,8 @@ function renderTrail(){
     <div><span class="eyebrow">Trilha de aprendizagem · D3</span><h2>${esc(TRILHA.title)}</h2>
       <div class="counts"><span>Vídeos e filmes <b>${st.vids[0]}/${st.vids[1]}</b></span><span>Leituras <b>${st.reads[0]}/${st.reads[1]}</b></span><span>Resoluções <b>${st.r}/${st.res.length}</b></span></div>
       ${next?`<div class="next"><span class="lbl">Continuar</span><span class="nt">${esc(next.t)}</span><a class="go" href="${esc(itemUrl(next))}" target="_blank" rel="noopener">${esc((KIND[next.kind]||["Abrir"])[0]==="Artigo"?"Ler":"Abrir")} ↗</a></div>`:`<div class="next"><span class="lbl">Trilha completa</span><span class="nt">Você viu tudo! Revise as resoluções antes da prova.</span></div>`}
-      ${bookBtn("")}
     </div>`;
+  $("#trail-book").innerHTML=bookBtn("light wide");
   const firstOpen=TRILHA.units.find(u=>unitCore(u).some(x=>!isSeen(x.id)));
   if(!openUnits.size&&firstOpen)openUnits.add(firstOpen.id);
   $("#trail-units").innerHTML=TRILHA.units.map(u=>{
