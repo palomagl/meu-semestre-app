@@ -1391,21 +1391,23 @@ const PHASES=[
          ["2026-09-21","2026-10-03","Avaliação I (individual)"],
          ["2026-09-28","2026-10-10","Avaliação II (individual)"],
          ["2026-09-14","2026-10-17","Agendamento da prova presencial"],
-         ["2026-10-13","2026-10-24","Prova presencial no polo","prova"],
+         ["2026-10-16",null,"Prova no polo: 16/10 às 16h (agendada) · Sala 101","prova"],
          ["2026-10-26","2026-11-04","2ª oportunidade: pedir a prova final"],
          ["2026-11-09","2026-11-21","2ª oportunidade: fazer a prova (agendar até 07/11)"],
          ["2026-11-09",null,"Sai a nota da Avaliação III"]],
-   prova:["2026-10-13","2026-10-24"]},
+   prova:["2026-10-16","2026-10-16"]},
   {code:"D4",name:"Contabilidade Geral",color:"#FF9A7A",start:"2026-10-12",end:"2026-12-12",when:"Quartas, 20h30 às 22h (Teams)",src:"ava",
-   rows:[["2026-11-09","2026-11-21","Prova presencial no polo (previsão)","prova","prev"]],
-   pending:"O cronograma de avaliações ainda não saiu no AVA.",prova:["2026-11-09","2026-11-21"]},
+   rows:[["2026-10-12","2026-11-07","Avaliação III: Desafio Profissional (individual)"],
+         ["2026-10-19","2026-10-31","Avaliação I (individual)"],
+         ["2026-10-26","2026-11-02","Avaliação II (individual)"],
+         ["2026-12-06","2026-12-12","Prova presencial no polo","prova"]],
+   prova:["2026-12-06","2026-12-12"]},
   {code:"D5",name:"Imersão Profissional: Desafios Contemporâneos",color:"#6FD6A8",start:"2026-11-08",end:"2026-12-12",when:"Terças, 20h30 às 22h (Teams)",src:"ava",
-   rows:[["2026-12-07","2026-12-19","Prova presencial no polo (previsão)","prova","prev"]],
-   pending:"O cronograma de avaliações ainda não saiu no AVA.",prova:["2026-12-07","2026-12-19"]}
+   rows:[["2026-11-08","2026-12-12","Síntese de Aprendizagem (peso 10) — é a única avaliação"]]}
 ];
 const EXTRAS=[
   ["2026-08-26",null,"Abertura da XVI JOIA (inscrições abertas; prazo no edital)"],
-  ["2026-10-05","2026-10-09","Semana da Extensão"],
+  ["2026-10-05","2026-10-09","Semana da Extensão: é quando abrem atividades que valem as horas de extensão do curso"],
   ["2026-10-12",null,"Feriado: Nossa Senhora Aparecida (é também o início de Contabilidade Geral)"],
   ["2026-10-15",null,"Dia do Professor"],
   ["2026-10-26","2026-10-30","RecuperAí: período de recuperação","prova"],
@@ -1622,7 +1624,7 @@ function renderHero(){
   $("#greet").textContent=h<5?"Boa noite":h<12?"Bom dia":h<18?"Boa tarde":"Boa noite";
   const t=isoToday();
   const cur=PHASES.filter(p=>t>=p.start&&t<=p.end).map(p=>`<b>${esc(phaseName(p))}</b>`);
-  const prov=PHASES.find(p=>t>=p.prova[0]&&t<=p.prova[1]);
+  const prov=PHASES.find(p=>p.prova&&t>=p.prova[0]&&t<=p.prova[1]);
   let txt=cur.length?`Agora: ${cur.join(" e ")}`:(t<SEM_START?"O semestre começa em 14/09.":t>SEM_END?"Semestre encerrado. Bom descanso!":"");
   if(prov)txt+=` · <b>semana de prova no polo</b>`;
   $("#doing").innerHTML=txt;
@@ -1642,7 +1644,7 @@ function renderHero(){
   const s0=parse(SEM_START);
   $("#weeks").innerHTML=[...Array(total)].map((_,i)=>{
     const a=iso(new Date(s0.getFullYear(),s0.getMonth(),s0.getDate()+i*7)),b=iso(new Date(s0.getFullYear(),s0.getMonth(),s0.getDate()+i*7+6));
-    const prova=PHASES.find(p=>p.prova[0]<=b&&p.prova[1]>=a);
+    const prova=PHASES.find(p=>p.prova&&p.prova[0]<=b&&p.prova[1]>=a);
     let cls="",fill=0;
     if(t>b){cls="done";fill=100;}else if(t>=a){cls="cur";fill=Math.round((daysBetween(a,t)+1)/7*100);}
     const tip=`Semana ${i+1} · ${range(a,b)}${prova?` · prova de ${phaseName(prova)}`:""}`;
