@@ -888,6 +888,10 @@ details.unit{border-radius:var(--r)}
   #p-trilha>.page-head{grid-column:1/-1}
   #p-trilha>#trail-units{grid-column:1;grid-row:2/span 2}
   #p-trilha>.trail-hero{grid-column:2;grid-row:2;grid-template-columns:auto 1fr;position:sticky;top:16px}
+  /* na coluna estreita o botão do livro fica só com o essencial */
+  #p-trilha>.trail-hero .bookbtn{padding:10px 12px;gap:10px}
+  #p-trilha>.trail-hero .bookbtn .bt small{display:none}
+  #p-trilha>.trail-hero .bookbtn .bk{width:34px;height:34px;border-radius:10px}
   #p-trilha>.box{grid-column:2;grid-row:3}
   #p-trilha .aulas{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
   /* Calendário: linha do tempo + datas ao lado */
