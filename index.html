@@ -415,6 +415,14 @@ body{padding-block:16px 40px}
 .hc-head h2{font-size:1.02rem}
 .go-link{font:700 .8rem var(--body);color:var(--muted);background:none;border:0;cursor:pointer;padding:2px 0}
 .go-link:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--hl);text-decoration-thickness:3px}
+/* horas de extensão e complementares */
+.horas{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:10px}
+.hora{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:11px 12px;display:flex;flex-direction:column;gap:8px}
+.hora .ht{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hora .ht b{font-size:.92rem}
+.hora .hn{display:flex;align-items:center;gap:4px;font:700 .8rem var(--mono);color:var(--muted)}
+.hora input{width:50px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:3px 6px;font:700 .8rem var(--mono);color:var(--ink);text-align:right}
+.hora small{color:var(--muted);font-size:.77rem}
 .mini-trail{display:flex;gap:14px;align-items:center}
 .ring.sm{width:72px;height:72px;flex:none;background:conic-gradient(var(--ink) calc(var(--p)*1%),var(--sunken) 0)}
 .ring.sm span{width:56px;height:56px;background:var(--surface);color:var(--ink);font-size:1.02rem}
@@ -869,13 +877,13 @@ details.unit{border-radius:var(--r)}
   .app{max-width:1520px;grid-template-columns:240px minmax(0,1fr);gap:22px}
   /* Início: painel em 3 colunas */
   #p-home{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;
-    grid-template-areas:"hero hero sum" "week week provas" "trail notas lemb"}
+    grid-template-areas:"hero hero sum" "week week provas" "trail notas lemb" "horas horas lemb"}
   #p-home>.hero{grid-area:hero}
   #p-home>.summary{grid-area:sum;grid-template-columns:1fr 1fr;align-content:stretch}
   #p-home>.summary .spot{grid-column:1/-1}
   #p-home>.week{grid-area:week}
   #p-home .home-grid{display:contents}
-  #home-trail{grid-area:trail}#home-provas{grid-area:provas}#home-notas{grid-area:notas}
+  #home-trail{grid-area:trail}#home-provas{grid-area:provas}#home-notas{grid-area:notas}#home-horas{grid-area:horas}
   #p-home .home-grid>.hcard:last-child{grid-area:lemb}
   #p-home .hcard{align-self:stretch}
   /* Agenda: colunas estilo quadro */
@@ -1150,6 +1158,7 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
         <article class="hcard" id="home-trail"></article>
         <article class="hcard" id="home-provas"></article>
         <article class="hcard" id="home-notas"></article>
+        <article class="hcard" id="home-horas"></article>
         <article class="hcard">
           <header class="hc-head"><h2>Não esquecer</h2><span class="hint">sem prazo de disciplina</span></header>
           <ul class="list" id="checks"></ul>
@@ -1544,6 +1553,7 @@ function renderHome(){
     <ul class="ulist">${TRILHA.units.filter(u=>u.id!=="ap").map(u=>{const c=unitCore(u),s=c.filter(x=>isSeen(x.id)).length,p=Math.round(s/c.length*100);
       return `<li><span>Unidade ${u.n}</span><div class="minibar"><i style="width:${p}%"></i></div><b class="mono">${p}%</b></li>`;}).join("")}</ul>
     ${bookBtn("light")}`;
+  renderHoras();
   /* provas */
   const provas=openTasks().filter(x=>x.type==="Prova"&&x.due&&x.due>=t).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,4);
   $("#home-provas").innerHTML=`<header class="hc-head"><h2>Próximas provas</h2><button class="go-link" data-go="cal">ver calendário →</button></header>
@@ -1579,6 +1589,24 @@ function tItem(x){
   return `<li class="ti ${s?"seen":""}"><span class="kind k-${x.kind}">${label}</span>
     <div class="tt">${url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(x.t)}</a>`:`<strong>${esc(x.t)}</strong>`}${x.d?`<p>${esc(x.d)}</p>`:""}</div>
     <label class="seenbox"><input type="checkbox" id="s-${esc(x.id)}" data-seen="${esc(x.id)}" ${s?"checked":""}>${verb}</label></li>`;
+}
+/* horas de extensão (166h do curso) e horas complementares (40h, pelo curso livre) */
+const HORAS_PADRAO={ext:{d:50,t:166},comp:{d:0,t:40}};
+function horasDe(k){return Object.assign({},HORAS_PADRAO[k],(state.meta.horas||{})[k]||{});}
+function renderHoras(){
+  const box=$("#home-horas");if(!box||box.contains(document.activeElement))return;
+  const curso=rows("checklist").filter(c=>/^Curso de IA/.test(c.text||""));
+  const feitas=curso.filter(c=>c.done).length;
+  const linha=(k,nome,rodape)=>{const h=horasDe(k),pct=h.t?Math.min(100,Math.round(h.d/h.t*100)):0;
+    return `<div class="hora"><div class="ht"><b>${nome}</b>
+      <span class="hn"><input type="number" min="0" step="1" value="${h.d}" data-h="${k}" data-k="d" aria-label="Horas feitas de ${nome}">/ ${h.t} h</span></div>
+      <div class="minibar"><i style="width:${pct}%"></i></div>
+      <small>${rodape(h)}</small></div>`;};
+  box.innerHTML=`<header class="hc-head"><h2>Horas do curso</h2></header>
+    <div class="horas">
+      ${linha("ext","Extensão",h=>`Faltam ${Math.max(0,h.t-h.d)} h · atividades no AVA`)}
+      ${linha("comp","Complementares",h=>`Faltam ${Math.max(0,h.t-h.d)} h · curso de IA${curso.length?`: ${feitas} de ${curso.length} etapas`:""}`)}
+    </div>`;
 }
 /* botão grande pro livro da disciplina (ele vivia escondido na lista de materiais) */
 function bookBtn(cls){
@@ -1856,6 +1884,12 @@ $("#f-subj").addEventListener("submit",e=>{
   closeSheet();toast("Disciplina adicionada");
 });
 $("#passing").addEventListener("change",e=>{const v=num(e.target.value);if(v!==null)setMeta({passing:v});});
+$("#home-horas").addEventListener("change",e=>{
+  const i=e.target.closest("input[data-h]");if(!i)return;
+  const v=num(i.value);if(v===null||v<0)return;
+  const k=i.dataset.h,h=Object.assign({},horasDe(k));h[i.dataset.k]=v;
+  setMeta({horas:Object.assign({},HORAS_PADRAO,state.meta.horas||{},{[k]:h})});
+});
 $("#cards").addEventListener("submit",e=>{
   const f=e.target.closest("[data-gadd]");if(!f)return;e.preventDefault();
   const id=f.dataset.gadd,s=state.subjects[id];if(!s)return;
