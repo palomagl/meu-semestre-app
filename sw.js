@@ -1,5 +1,5 @@
 /* Meu Semestre â€” service worker: deixa o app abrir mesmo sem internet */
-const CACHE = "meu-semestre-v6";
+const CACHE = "meu-semestre-v7";
 const ASSETS = [
   "./",
   "./index.html",

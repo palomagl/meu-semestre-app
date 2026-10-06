@@ -254,6 +254,16 @@ details.donebox ul{margin-top:8px}
 .next .nt{font-weight:600;flex:1;min-width:160px}
 .go{display:inline-flex;align-items:center;gap:6px;font:700 .82rem var(--body);background:var(--hl);color:var(--on-hl);border-radius:9px;padding:7px 12px;text-decoration:none;white-space:nowrap}
 .go:hover{filter:brightness(1.05)}
+/* botão grande do livro da disciplina */
+.bookbtn{margin-top:10px;display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:14px;padding:11px 13px;background:color-mix(in srgb,var(--hero-ink) 10%,transparent);border:1px solid color-mix(in srgb,var(--hero-ink) 22%,transparent);color:var(--hero-ink)}
+.bookbtn:hover{background:color-mix(in srgb,var(--hero-ink) 17%,transparent)}
+.bookbtn .bk{width:38px;height:38px;flex:none;border-radius:11px;background:var(--hl);color:var(--on-hl);display:grid;place-items:center;font-size:1.1rem}
+.bookbtn .bt{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.bookbtn .bt b{font-weight:700;font-size:.95rem}
+.bookbtn .bt small{font-size:.76rem;opacity:.75}
+.bookbtn .arr{margin-left:auto;font-weight:700;opacity:.75;white-space:nowrap}
+.bookbtn.light{background:var(--sunken);border-color:var(--line);color:var(--ink)}
+.bookbtn.light:hover{background:var(--hl-soft)}
 @media (max-width:520px){.trail-hero{grid-template-columns:1fr}.ring{width:80px;height:80px}.ring span{width:62px;height:62px;font-size:1.1rem}}
 details.unit{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 details.unit[open]{box-shadow:0 1px 0 var(--line)}
@@ -1283,7 +1293,7 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
         <span class="eyebrow">XVI JOIA · 2026 · Ciência que Conecta</span>
         <h2>O que é a JOIA</h2>
         <p>A <b>Jornada de Integração Acadêmica</b> é o evento de iniciação científica da UNIASSELVI, aberto ao presencial e ao EAD. Em resumo: você (sozinha ou em grupo) desenvolve um pequeno trabalho de pesquisa ou extensão com a ajuda de um(a) <b>orientador(a)</b>, escreve um <b>resumo</b> no modelo oficial, envia no prazo, e quem é aprovado apresenta o trabalho, inclusive por <b>comunicação oral no Teams</b>.</p>
-        <p>A XVI JOIA abriu em <b>26/08/2026</b> com inscrições abertas. <b>O prazo final só está no edital</b>, não no calendário acadêmico.</p>
+        <p>Inscrições abertas desde 26/08/2026. O prazo final está no edital.</p>
       </div>
       <div class="joia-grid">
         <div class="box">
@@ -1304,7 +1314,7 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
             <li>Identificando Recursos Digitais para o Ensino de Pensamento Computacional</li>
             <li>Identidade Visual e Comunicação em Produtos Artesanais: Uma Abordagem Semiótica e Cultural</li>
           </ul>
-          <p class="hint">O padrão: um <b>tema bem recortado</b> e um <b>verbo de pesquisa</b> (mensurar, identificar, mapear, analisar). Às vezes ninguém é aprovado num projeto, então caprichar no resumo faz diferença.</p>
+          <p class="hint">O padrão: um tema bem recortado e um verbo de pesquisa (mensurar, identificar, mapear, analisar).</p>
         </div>
         <div class="box">
           <h3>Ideias no jeito de Processos Gerenciais</h3>
@@ -1313,7 +1323,6 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
             <li>Como microempreendedores de Sapiranga controlam o fluxo de caixa</li>
             <li>Ferramentas digitais no atendimento ao cliente do comércio local</li>
           </ul>
-          <p class="hint">São só pontos de partida. O orientador ajuda a recortar.</p>
         </div>
       </div>
       <div class="joia-check">
@@ -1525,7 +1534,8 @@ function renderHome(){
     <div class="mini-trail"><div class="ring sm" style="--p:${st.pct}"><span>${st.pct}%</span></div>
       <div class="mt">${next?`<small>Próximo passo</small><b>${esc(next.t)}</b><a class="go" href="${esc(itemUrl(next))}" target="_blank" rel="noopener" style="align-self:flex-start">Continuar ↗</a>`:`<b>Trilha completa!</b><small>Revise as resoluções antes da prova.</small>`}</div></div>
     <ul class="ulist">${TRILHA.units.filter(u=>u.id!=="ap").map(u=>{const c=unitCore(u),s=c.filter(x=>isSeen(x.id)).length,p=Math.round(s/c.length*100);
-      return `<li><span>Unidade ${u.n}</span><div class="minibar"><i style="width:${p}%"></i></div><b class="mono">${p}%</b></li>`;}).join("")}</ul>`;
+      return `<li><span>Unidade ${u.n}</span><div class="minibar"><i style="width:${p}%"></i></div><b class="mono">${p}%</b></li>`;}).join("")}</ul>
+    ${bookBtn("light")}`;
   /* provas */
   const provas=openTasks().filter(x=>x.type==="Prova"&&x.due&&x.due>=t).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,4);
   $("#home-provas").innerHTML=`<header class="hc-head"><h2>Próximas provas</h2><button class="go-link" data-go="cal">ver calendário →</button></header>
@@ -1562,6 +1572,15 @@ function tItem(x){
     <div class="tt">${url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(x.t)}</a>`:`<strong>${esc(x.t)}</strong>`}${x.d?`<p>${esc(x.d)}</p>`:""}</div>
     <label class="seenbox"><input type="checkbox" id="s-${esc(x.id)}" data-seen="${esc(x.id)}" ${s?"checked":""}>${verb}</label></li>`;
 }
+/* botão grande pro livro da disciplina (ele vivia escondido na lista de materiais) */
+function bookBtn(cls){
+  const m=TRILHA.mats.find(([t])=>/livro/i.test(t));
+  if(!m)return "";
+  return `<a class="bookbtn ${cls}" href="${esc(m[1])}" target="_blank" rel="noopener">
+    <span class="bk" aria-hidden="true">📖</span>
+    <span class="bt"><b>Livro da disciplina</b><small>${esc(TRILHA.title)} · PDF da UNIASSELVI</small></span>
+    <span class="arr">Abrir ↗</span></a>`;
+}
 function renderTrail(){
   const st=trailStats();
   const next=st.core.find(x=>!isSeen(x.id)&&x.kind!=="extra");
@@ -1569,6 +1588,7 @@ function renderTrail(){
     <div><span class="eyebrow">Trilha de aprendizagem · D3</span><h2>${esc(TRILHA.title)}</h2>
       <div class="counts"><span>Vídeos e filmes <b>${st.vids[0]}/${st.vids[1]}</b></span><span>Leituras <b>${st.reads[0]}/${st.reads[1]}</b></span><span>Resoluções <b>${st.r}/${st.res.length}</b></span></div>
       ${next?`<div class="next"><span class="lbl">Continuar</span><span class="nt">${esc(next.t)}</span><a class="go" href="${esc(itemUrl(next))}" target="_blank" rel="noopener">${esc((KIND[next.kind]||["Abrir"])[0]==="Artigo"?"Ler":"Abrir")} ↗</a></div>`:`<div class="next"><span class="lbl">Trilha completa</span><span class="nt">Você viu tudo! Revise as resoluções antes da prova.</span></div>`}
+      ${bookBtn("")}
     </div>`;
   const firstOpen=TRILHA.units.find(u=>unitCore(u).some(x=>!isSeen(x.id)));
   if(!openUnits.size&&firstOpen)openUnits.add(firstOpen.id);
