@@ -235,6 +235,12 @@ details.donebox ul{margin-top:8px}
 .joia-hero p{margin:0;max-width:70ch;color:color-mix(in srgb,var(--hero-ink) 88%,transparent)}
 .joia-hero b{color:var(--hl)}
 .joia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.joia-sobre summary{cursor:pointer;list-style:none;font:700 .95rem var(--body);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.joia-sobre summary::-webkit-details-marker{display:none}
+.joia-sobre summary::after{content:"▾";color:var(--muted);font-size:.72rem}
+.joia-sobre[open] summary::after{content:"▴"}
+.joia-sobre p{margin:10px 0 0;color:var(--muted);font-size:.9rem}
+.joia-sobre .steps{margin-top:10px}
 .box h3{font-size:1.02rem;font-weight:700}
 .steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:7px;font-size:.92rem}
 .steps li::marker{font-family:var(--mono);font-weight:700}
@@ -877,7 +883,7 @@ details.unit{border-radius:var(--r)}
   .app{max-width:1520px;grid-template-columns:240px minmax(0,1fr);gap:22px}
   /* Início: painel em 3 colunas */
   #p-home{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;
-    grid-template-areas:"hero hero sum" "week week provas" "trail notas lemb" "horas horas lemb"}
+    grid-template-areas:"hero hero sum" "week week provas" "horas horas horas" "trail notas lemb"}
   #p-home>.hero{grid-area:hero}
   #p-home>.summary{grid-area:sum;grid-template-columns:1fr 1fr;align-content:stretch}
   #p-home>.summary .spot{grid-column:1/-1}
@@ -1157,8 +1163,8 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
       <div class="home-grid">
         <article class="hcard" id="home-trail"></article>
         <article class="hcard" id="home-provas"></article>
-        <article class="hcard" id="home-notas"></article>
         <article class="hcard" id="home-horas"></article>
+        <article class="hcard" id="home-notas"></article>
         <article class="hcard">
           <header class="hc-head"><h2>Não esquecer</h2><span class="hint">sem prazo de disciplina</span></header>
           <ul class="list" id="checks"></ul>
@@ -1303,42 +1309,20 @@ body.signed .bk-cloud{display:block}body.signed .bk-local{display:none}
 
     <!-- JOIA -->
     <section class="panel" id="p-joia" hidden>
-      <header class="page-head"><div class="ph-txt"><span class="eyebrow">JOIA</span><h1>Iniciação científica</h1><p>O que é, como funciona e o que falta fazer.</p></div></header>
-      <div class="joia-hero">
-        <span class="eyebrow">XVI JOIA · 2026 · Ciência que Conecta</span>
-        <h2>O que é a JOIA</h2>
-        <p>A <b>Jornada de Integração Acadêmica</b> é o evento de iniciação científica da UNIASSELVI, aberto ao presencial e ao EAD. Em resumo: você (sozinha ou em grupo) desenvolve um pequeno trabalho de pesquisa ou extensão com a ajuda de um(a) <b>orientador(a)</b>, escreve um <b>resumo</b> no modelo oficial, envia no prazo, e quem é aprovado apresenta o trabalho, inclusive por <b>comunicação oral no Teams</b>.</p>
-        <p>Inscrições abertas desde 26/08/2026. O prazo final está no edital.</p>
-      </div>
+      <header class="page-head"><div class="ph-txt"><span class="eyebrow">JOIA</span><h1>Iniciação científica</h1><p>O que falta fazer, se você quiser participar.</p></div></header>
       <div class="joia-grid">
-        <div class="box">
-          <h3>Passo a passo</h3>
+        <details class="box joia-sobre">
+          <summary>O que é a JOIA e como funciona</summary>
+          <p>A <b>Jornada de Integração Acadêmica</b> é o evento de iniciação científica da UNIASSELVI, aberto ao EAD. Você faz um trabalho curto com um(a) orientador(a), escreve um resumo no modelo oficial, envia no prazo e, se for aprovada, apresenta no Teams. Inscrições abertas desde 26/08/2026; o prazo final está no edital.</p>
           <ol class="steps">
-            <li><b>Ler o edital</b>: quem pode participar, prazos e formato do resumo.</li>
-            <li><b>Escolher um tema</b> que caiba no seu curso.</li>
-            <li><b>Conseguir um(a) orientador(a)</b>. Todo projeto tem um professor responsável, às vezes com um coorientador.</li>
-            <li><b>Escrever o resumo</b> no modelo oficial.</li>
-            <li><b>Inscrever e enviar</b> dentro do prazo.</li>
-            <li><b>Apresentar</b>, se for aprovada, com o modelo de slides.</li>
+            <li>Ler o edital.</li>
+            <li>Escolher um tema do seu curso.</li>
+            <li>Conseguir um(a) orientador(a).</li>
+            <li>Escrever o resumo no modelo oficial.</li>
+            <li>Inscrever e enviar no prazo.</li>
+            <li>Apresentar, se for aprovada.</li>
           </ol>
-        </div>
-        <div class="box">
-          <h3>Como é um projeto de verdade</h3>
-          <ul class="examples">
-            <li>Mensurando a Qualidade em Elementos de Jogos Digitais para Projetos Indies</li>
-            <li>Identificando Recursos Digitais para o Ensino de Pensamento Computacional</li>
-            <li>Identidade Visual e Comunicação em Produtos Artesanais: Uma Abordagem Semiótica e Cultural</li>
-          </ul>
-          <p class="hint">O padrão: um tema bem recortado e um verbo de pesquisa (mensurar, identificar, mapear, analisar).</p>
-        </div>
-        <div class="box">
-          <h3>Ideias no jeito de Processos Gerenciais</h3>
-          <ul class="examples">
-            <li>Gestão de estoque em pequenas fábricas de calçados do Vale do Sinos</li>
-            <li>Como microempreendedores de Sapiranga controlam o fluxo de caixa</li>
-            <li>Ferramentas digitais no atendimento ao cliente do comércio local</li>
-          </ul>
-        </div>
+        </details>
       </div>
       <div class="joia-check">
       <div class="hc-head"><h2>Checklist da JOIA</h2><button class="mini-btn" type="button" data-open="f-joia">+ Item</button></div>
